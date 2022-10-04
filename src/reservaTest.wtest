@@ -1,10 +1,102 @@
-
+import especies.*
+import reservaNatural.*
 describe "test de la reserva" {
 //probar cantidadTotalBiomasa(), habitatsDesequilibrados(), contieneEspecie(), especieEstaEnTodosLosHabitats() etc
-
+	//crear 4 habitats (todos con UNA misma especie y el resto distintas y uno desequilibrado)
+	const leon= new EspecieFauna(pesoReferencia=25,locomocion=correr)
+	const animalLeon= new Animal(peso=151,especie=leon) // grande, 912,04, muere
+	const animalLeon2= new Animal(peso=151,especie=leon) // grande, 912,04, muere
+	
+	const tigre= new EspecieFauna(pesoReferencia=20,locomocion=correr)
+	const animalTigre= new Animal(peso=38,especie=tigre) // mediano, 72,2, vive 
+	const animalTigre2= new Animal(peso=38,especie=tigre) // mediano, 72,2, vive 
+	const animalTigre3= new Animal(peso=38,especie=tigre) // mediano, 72,2, vive 
+	const animalTigre4= new Animal(peso=38,especie=tigre) // mediano, 72,2, vive 
+	
+	
+	const paloma= new EspecieFauna(pesoReferencia=15,locomocion=volar)
+	const animalPaloma= new Animal(peso=6,especie=paloma) //pequenio, 2,4, muere
+	
+	const cactus = new EspecieFlora(alturaReferencia = 25)
+    const cactusPlanta = new Planta(especie = cactus, altura = 5) //pequeño, 10, muere
+    const cactusPlanta2 = new Planta(especie = cactus, altura = 5) // pequeño, 10, muere
+    const cactusPlanta3 = new Planta(especie = cactus, altura = 5) //pequeño, 10, muere
+    
+    const habitat1 = new Habitat(seresVivos=[animalTigre,animalPaloma,cactusPlanta2]) //84,6
+    const habitat2 = new Habitat(seresVivos=[animalLeon,animalTigre2,cactusPlanta3]) //994,24
+    const habitat3 = new Habitat(seresVivos=[animalTigre3,animalPaloma,cactusPlanta]) //84,6
+    const habitat4 = new Habitat(seresVivos=[animalLeon2,animalTigre4]) // 984,24
+    
+    method initialize(){
+    	reserva.agregarHabitat(habitat1)
+    	reserva.agregarHabitat(habitat2)
+    	reserva.agregarHabitat(habitat3)
+    	reserva.agregarHabitat(habitat4)
+    }
+    
+    
+	test"cantidad total de biomasa"{
+		assert.equals(reserva.biomasaTotalRes(),2147.68)
+	}
+	
+	test"habitats desequilibrados(habitat 2 y 4)"{
+		assert.equals(reserva.habitatsDesequilibrados(),[habitat2,habitat4])
+	}
+	
+	test"especie en todos los habitats"{
+		assert.that(reserva.especieEnTodosLosHabitats(tigre))
+	}
+	
+	test"especie en la reserva"{
+		assert.that(reserva.especieEnUnHabitat(paloma))
+	}
+	
+	test"habitat con mayor biomasa"{
+		assert.equals(reserva.habitatConMayorBiomasa(),habitat2)
+	}
+	
+	
 }
 
 describe "test de habitats" {
-//probar totalBiomasa(), producirIncendio(), 	
+//probar totalBiomasa(), producirIncendio(), estaEnEquilibrio(), hayDeLaEspecie(especie)
+	const leon= new EspecieFauna(pesoReferencia=25,locomocion=correr)
+	const animalLeon= new Animal(peso=151,especie=leon) // grande, 912,04, muere
+	
+	const tigre= new EspecieFauna(pesoReferencia=20,locomocion=correr)
+	const animalTigre= new Animal(peso=38,especie=tigre) // mediano, 72,2, vive 
+	
+	const paloma= new EspecieFauna(pesoReferencia=15,locomocion=volar)
+	const animalPaloma= new Animal(peso=6,especie=paloma) //pequenio, 2,4, muere
+	
+	const cactus = new EspecieFlora(alturaReferencia = 25)
+    const cactusPlanta = new Planta(especie = cactus, altura = 5) //pequeño, 10, muere
+    const cactusPlanta2 = new Planta(especie = cactus, altura = 5) // pequeño, 10, muere
+    const cactusPlanta3 = new Planta(especie = cactus, altura = 5) //pequeño, 10, muere
+    
+    const habitat = new Habitat(seresVivos=[animalLeon,animalTigre,animalPaloma,cactusPlanta,cactusPlanta2,cactusPlanta3])
+    
+    test "total de biomasa"{
+    	assert.equals(habitat.biomasaTotal(),1016.64)
+    }
+    
+    test "habitat en equilibrio"{
+    	assert.that(habitat.estaEnEquilibrio())
+    }
+    
+    test "simular incendio (solo vive el tigre)"{
+    	habitat.incendiar()
+    	assert.equals(habitat.seresVivos(),[animalTigre])
+    }
+    
+    test "simular incendio (consecuencias del tigre)"{
+    	habitat.incendiar()
+    	assert.equals(animalTigre.peso(),34.2)
+    }
+    
+    test "hay de la especie tigre"{
+    	assert.that(habitat.hayDeLaEspecie(tigre))
+    }
 	
 }
+

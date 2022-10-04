@@ -1,12 +1,73 @@
+import especies.*
 
 describe "tests de animales" {
 //probar los métodos biomasa(), peso(), consecuenciasDelIncendio, esGrande(),
 //esPequenio(), esMediano(), estaVivo(), etc
 	
-
+	const leon= new EspecieFauna(pesoReferencia=25,locomocion=volar)
+	const animalLeon= new Animal(peso=20,especie=leon)
+	
+	test "biomasa"{
+		assert.that(animalLeon.biomasa()==16)
+	}
+	
+	test "peso"{
+		assert.that(animalLeon.peso()==20)
+	}
+	
+	test "consecuencias del incendio"{
+		animalLeon.sufrirIncendio()
+		assert.that(animalLeon.peso()==18)
+	}
+	
+	test "no es grande"{
+		assert.notThat(animalLeon.esGrande())
+	}
+	
+	test "no es pequenio"{
+		assert.notThat(animalLeon.esPequenio())
+	}
+	
+	test "es mediano"{
+		assert.that(animalLeon.esMediano())
+	}
+	
+	test "no esta vivo"{
+		assert.that(animalLeon.estaMuerto())
+	}
+	
+	
 }
 
 describe "tests de plantas" {
 //probar los métodos biomasa(), altura(), consecuenciasDelIncendio, esGrande(),
 //esPequenio(), estaVivo() etc
+    const cactus = new EspecieFlora(alturaReferencia = 25)
+    const cactusPlanta = new Planta(especie = cactus, altura = 30)
+    
+    test "La biomasa del cactus que mide 25 es 50" {
+        assert.equals(cactusPlanta.biomasa(), 50)
+    }
+    
+    test "La altura del cactus con valor altura 30 es 25" {
+        assert.equals(cactusPlanta.altura(), 25)
+    }
+    
+    test "El cactus sufre el incendio y pierde 5 de altura" {
+        cactusPlanta.sufrirIncendio()
+        assert.equals(cactusPlanta.altura(), 20)
+    }
+    
+    test "El cactus que mide 25 es grande" {
+        assert.that(cactusPlanta.esGrande())
+    }
+    
+    test "El cactus que mide 25 no es pequeño" {
+        assert.notThat(cactusPlanta.esPequenio())
+    }
+    
+    test "El cactus al sufrir el incendio no está muerto" {
+        cactusPlanta.sufrirIncendio()
+        assert.notThat(cactusPlanta.estaMuerto())
+    }	
 }

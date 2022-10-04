@@ -5,10 +5,10 @@ object reserva {
 	method habitatConMayorBiomasa() = habitats.max({c => c.biomasaTotal()})
 	method biomasaTotalRes() = habitats.sum({c => c.biomasaTotal()})
 	method habitatsDesequilibrados()= habitats.filter({c => not c.estaEnEquilibrio()})
+	method agregarHabitat(habitat){habitats.add(habitat)}
 	
-	
-	method especieEnTodosLosHabitats(especie)= habitats.all({c => c.any({c.especie() == especie})})
-	
+	method especieEnTodosLosHabitats(especie)= habitats.all({c => c.hayDeLaEspecie(especie)})
+	method especieEnUnHabitat(especie)= habitats.any({c => c.hayDeLaEspecie(especie)})
 
 }
 
@@ -21,4 +21,6 @@ class Habitat {
 		seresVivos.forEach({c => c.sufrirIncendio()})
 	}
 	// method animalesQueMueren()= seresVivos.filter({c => c.muere()})
+	method hayDeLaEspecie(especie)= seresVivos.any({c => c.especie() == especie})
+	method seresVivos()= seresVivos
 }

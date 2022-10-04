@@ -7,10 +7,24 @@ Un grupo de colonos espaciales decidió crear una reserva natural en Marte para 
 
 La reserva natural cuenta con diferentes hábitats, por ejemplo, llanura, bosque, desierto, cada uno con su propia fauna y flora. 
 
+# RESERVA tiene HABITATS = []
+
 Tanto los animales como las plantas pertenecen a una especie que las identifica.
+ 
+# ANIMALES y PLANTAS pertenecen a ESPECIE 
+
 Las plantas, de las especies de flora, se caracterizan por tener una altura en metros y su biomasa es igual al doble de dicha altura, pero nunca más de la altura máxima de referencia de la especie. Actualmente está establecida en 10 la altura límite con la que se considera grande o pequeña una planta. 
 
+# PLANTAS (ESPECIE FLORA) tiene ALTURA (mts) y BIOMASA (= ALTURA*2) [con un limite en la altura maxima de la ESPECIE (10)]
+
 De los los animales que son de las especies de fauna, se conoce cuánto pesan.  La biomasa de un animal se calcula como el peso al cuadrado sobre el coeficiente propio de su especie. Los animales pueden ser pequeños (si su peso es menor a la mitad del peso de referencia de su especie ), grandes (si pesan más del doble del peso de referencia de su especie) o medianos, en cualquier otro caso.  Además, se sabe la forma de locomoción propia de la especie: pueden volar (x ej golondrina), nadar (x ej delfín), correr (x ej hormiga) o quedarse siempre quietos (x ej mejillón).
+
+# ANIMALES (ESPECIE FAUNA) tiene PESO y BIOMASA(PESO^2 / COEFICIENTE de la ESPECIE)
+# ANIMALES tienen TAMAÑO (
+        # PEQUEÑOS si PESO < PESO REFERENCIA/2 
+        # GRANDES  si PESO > PESO REFERENCIA*2  
+        # MEDIANO en otros casos
+)
 
 
 <img src="img/marsColonization.png"  height="600" width="768">
