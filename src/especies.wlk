@@ -28,6 +28,7 @@ class Planta {
 	var altura 
 	var property biomasa = self.altura()*2 
 	method altura()= if(altura < especie.alturaReferencia()) altura else especie.alturaReferencia()
+	method altura(a) {altura = a.min(especie.alturaReferencia())}
 	method esPequenio()= self.altura() < 10
 	method esGrande()= self.altura() >= 10
 	method esMediano()= false
